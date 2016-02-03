@@ -42,14 +42,6 @@
 				background-image: url("ace_of_spades.png");
 			}
 
-			.z2 {
-				z-index: 2;
-			}
-
-			.z1 {
-				z-index: 1;
-			}
-
 		</style>
 	</head>
 	<body>
@@ -63,14 +55,15 @@
 		<script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
 		<script>
 
+		var $c = 0
+
 		$('.cards').on('mousedown', function(e) {
-			var $c = $(this);
+			$c = $(this);
 			var offset = $c.offset();
 			var cursorX = e.pageX - offset.left;
 			var cursorY = e.pageY - offset.top;
 			
-			$('.cards').removeClass('z2').addClass('z1');
-			$c.removeClass('z1').addClass('z2');
+			$('#container').append($c);
 
 			$($c).on('mousemove', function(f) {
 				var x = f.pageX - cursorX;
@@ -79,11 +72,11 @@
 				if ($c) {
 					$c.css('left', x).css('top', y);
 				}
-				
-				$($c).on('mouseup', function() {
-					$c = 0;
-				})
 			})
+		})
+
+		$(window).on('mouseup', function() {
+			$c = 0;
 		})
 
 		</script>
