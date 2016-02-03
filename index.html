@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<style>
+			* {
+				padding: 0px;
+				margin: 0px;
+			}
+
+			body {
+				background-color: #277714;
+			}
+
+			.cards {
+				top: 10px;
+				height: 363px;
+				width: 250px;
+				position: absolute;
+				background-size: contain;
+			}
+
+			#c1 {
+				left: 50px;
+				background-image: url("jack_of_spades2.png");
+			}
+
+			#c2 {
+				left: 150px;
+				background-image: url("queen_of_spades2.png");
+			}
+
+			#c3 {
+				left: 250px;
+				background-image: url("king_of_spades2.png");
+			}
+
+			#c4 {
+				left: 350px;
+				background-image: url("ace_of_spades.png");
+			}
+
+			.z2 {
+				z-index: 2;
+			}
+
+			.z1 {
+				z-index: 1;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<div id="c1" class="cards"></div>
+			<div id="c2" class="cards"></div>
+			<div id="c3" class="cards"></div>
+			<div id="c4" class="cards"></div>
+		</div>
+
+		<script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
+		<script>
+
+		$('.cards').on('mousedown', function(e) {
+			var $c = $(this);
+			var offset = $c.offset();
+			var cursorX = e.pageX - offset.left;
+			var cursorY = e.pageY - offset.top;
+			
+			$('.cards').removeClass('z2').addClass('z1');
+			$c.removeClass('z1').addClass('z2');
+
+			$($c).on('mousemove', function(f) {
+				var x = f.pageX - cursorX;
+				var y = f.pageY - cursorY;
+				
+				if ($c) {
+					$c.css('left', x).css('top', y);
+				}
+				
+				$($c).on('mouseup', function() {
+					$c = 0;
+				})
+			})
+		})
+
+		</script>
+	</body>
+</html>
