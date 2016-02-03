@@ -12,6 +12,7 @@
 
 			body {
 				background-color: #277714;
+				overflow: hidden;
 			}
 
 			.cards {
@@ -55,29 +56,30 @@
 		<script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
 		<script>
 
-		var $c = 0
+		$(function() {
 
-		$('.cards').on('mousedown', function(e) {
-			$c = $(this);
-			var offset = $c.offset();
-			var cursorX = e.pageX - offset.left;
-			var cursorY = e.pageY - offset.top;
-			
-			$('#container').append($c);
+			var $c = 0
 
-			$($c).on('mousemove', function(f) {
-				var x = f.pageX - cursorX;
-				var y = f.pageY - cursorY;
+			$('.cards').on('mousedown', function(e) {
+				$c = $(this);
+				var offset = $c.offset();
+				var cursorX = e.pageX - offset.left;
+				var cursorY = e.pageY - offset.top;
 				
-				if ($c) {
-					$c.css('left', x).css('top', y);
-				}
-			})
-		})
+				$('#container').append($c);
 
-		$(window).on('mouseup', function() {
-			$c = 0;
-		})
+				$($c).on('mousemove', function(f) {
+					var x = f.pageX - cursorX;
+					var y = f.pageY - cursorY;
+					$c.css('left', x).css('top', y);
+				})
+			})
+
+			$(window).on('mouseup', function() {
+				$c = 0;
+			})
+
+		});
 
 		</script>
 	</body>
