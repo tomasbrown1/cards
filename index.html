@@ -12,6 +12,10 @@
 
 			body {
 				background-color: #277714;
+			}
+
+			#container {
+				max-height: 781.44px;
 				overflow: hidden;
 			}
 
@@ -23,11 +27,15 @@
 			}
 
 			.cards:hover {
+				cursor: -moz-grab;
 				cursor: -webkit-grab;
+				cursor: grab;
 			}
 
 			.cards:active {
+				cursor: -moz-grabbing;
 				cursor: -webkit-grabbing;
+				cursor: grabbing;
 			}
 
 			#c01 {
@@ -409,26 +417,29 @@
 		$(function() {
 			var $c = 0;
 			
-			$('.cards').on('mousedown', function(e) {
+			$('.cards').on('mousedown touchstart', function(e) {
+				e.preventDefault();
 				$c = $(this);
 				var offset = $c.offset();
-				var cursorX = e.pageX - offset.left;
-				var cursorY = e.pageY - offset.top;
+				var cursorX = (e.pageX || e.originalEvent.touches[0].pageX) - offset.left;
+				var cursorY = (e.pageY || e.originalEvent.touches[0].pageY) - offset.top;
 				$('#container').append($c);
 				
-				$(window).on('mousemove', function(f) {
+				$(window).on('mousemove touchmove', function(f) {
+					f.preventDefault();
 					if ($c) {
-						var x = f.pageX - cursorX;
-						var y = f.pageY - cursorY;
+						var x = (f.pageX || f.originalEvent.touches[0].pageX) - cursorX;
+						var y = (f.pageY || f.originalEvent.touches[0].pageY) - cursorY;
 						$c.css('left', x).css('top', y);
 					}
 				})
 			})
 			
-			$(window).on('mouseup', function() {
+			$(window).on('mouseup touchend', function() {
 				$c = 0;
 			})
 		});
+
 		</script>
 	</body>
 </html>
