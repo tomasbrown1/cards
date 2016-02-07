@@ -13,11 +13,14 @@
 			body {
 				background-color: #277714;
 				height: 100%;
+				overflow: hidden;
 			}
 
 			#container {
-				height: 781.44px;
-				width: 761.055px;
+				width: 100wv;
+				height: 100vh;
+				min-height: 781.44px;
+				min-width: 761.055px;
 				overflow: hidden;
 			}
 
@@ -352,6 +355,19 @@
 				background-image: url("king_of_spades2.svg");
 			}
 
+			#holdersContainer {
+				text-align: right;
+			}
+
+			.holders {
+				display: inline-block;
+				height: 161.44px;
+				width: 111.055px;
+				border: 1px solid #000;
+				margin: 50px 50px auto auto;
+			}
+
+
 		</style>
 	</head>
 	<body>
@@ -411,6 +427,13 @@
 			<div id="s11" class="cards"></div>
 			<div id="s12" class="cards"></div>
 			<div id="s13" class="cards"></div>
+
+			<div id="holdersContainer">
+				<div id="holder1" class="holders"></div>
+				<div id="holder2" class="holders"></div>
+				<div id="holder3" class="holders"></div>
+				<div id="holder4" class="holders"></div>
+			</div>
 		</div>
 
 		<script src='https://code.jquery.com/jquery-2.1.4.min.js'></script>
@@ -433,6 +456,32 @@
 						var x = (f.pageX || f.originalEvent.touches[0].pageX) - cursorX;
 						var y = (f.pageY || f.originalEvent.touches[0].pageY) - cursorY;
 						$c.css('left', x).css('top', y);
+						
+
+						var $holders = $('.holders');
+						var $boxOffset = $holders.offset();
+
+
+						var boxX = $boxOffset.left;
+						var boxY = $boxOffset.top;
+						var XSnap = false;
+						var YSnap = false;
+						if ($c.offset().top > $holders.offset().top - 20 && $c.offset().top < $holders.offset().top + 20) {
+							XSnap = true;
+						} else {
+							XSnap = false;
+						}
+						if ($c.offset().left > $holders.offset().left - 20 && $c.offset().left < $holders.offset().left + 20) {
+							YSnap = true;
+						} else {
+							YSnap = false;
+						}
+						if (XSnap && YSnap === true) {
+							$c.css('left', boxX).css('top', boxY)
+						}
+
+
+
 					}
 				})
 			})
